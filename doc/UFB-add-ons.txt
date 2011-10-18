@@ -1,0 +1,52 @@
+
+---------------------------
+- Monsters talking system -
+---------------------------
+
+The monster talking system allow monsters to talk, at the moment the feature is very simple in future will be 
+expanded to allow more complex managements, all the messagges are stored in a file called mob_messagges.txt that 
+must be located in the db folder of the server (eg. $SERVER/db/mob_messagges.txt where $SERVER is the path of the server).
+The actual talking system is very simple but it allows a monster to talk when an event is triggered, for 
+example when the mob starts to walk.
+
+The fields of the file mob_messagges.txt are:
+
+mob_id, trigger_event, probability, messagge
+
+all those fields are required.
+
+
+######################
+# Fields description #
+######################
+
+mob_id is the id of the monster defined in mob_db.txt.
+
+trigger_event is one of the following:
+
+  + idle: the mob stops to walk
+  + walk: the mob starts to walk
+  + attack: the mob attacks
+  + died: the mob dies
+  + loot: the mob starts to loot items
+  + chase: the mob chase an enemy
+  + kill: the mob kills a player
+
+
+probability is the probability that the monster will talk using that message the maximim value is defined internally in the server code (in future will be defined in an external textual file that will avoid to recompile the server each time that it must be changed) and right now it's fixed to the value of 1000.
+
+messagge is the text messagge associate with that particular event, actually an event can have up to 10 messagges 
+per event, again this value is define on server code by a constant (can be modified changing the defined constant in the header file mobs.h).
+
++++++++++
++ Notes +
++++++++++
+
++ The server will force every value above 1000 in the probability field to 1000 and every value below 0 to 0; to modify the maximum value change the defined constant MAX_MOBTALKPERC in the header file mob.h.
+
++ The maximum number of messagges associated to a state is defined by the constant MAX_MOBMESSAGGES and it's set in the header file mob.h.
+
++ There is a simply antispam system for monsters it limitate the number of the messagges that each monster can say in a certain amount of time, it's actually a fixed delay that prevent the monster to talk to spam, the constant is defined in the header file mob.h with the name MOBTALK_DELAY it's expressed in ms.
+
+>>> Important note: the messagge cannot contain commas at the moment. <<<
+

@@ -1,0 +1,8 @@
+This is just our eAthena version. We store our scripts, items and monster databases, etc.
+in a separate git repository called tmw-ufb, available at:
+
+ http://gitorious.org/tmw-ufb
+
+Note that this repository contains more than just the contents of this data
+directory. Either set up symbolic links or just copy the server executables
+into it.
